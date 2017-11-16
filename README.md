@@ -10,7 +10,6 @@ Due Nov. 29, 2017
 
 The primary goal of this lab assignment is to exercise four paging replacement algorithms and evaluate the effectiveness of each algorithm which affects the performance of memory management.
 
------------------
 # Part I - Description  
 
 Write a C or C++ program that simulates the operation of 4 page replacement algorithms used in a virtual memory management system:
