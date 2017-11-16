@@ -49,7 +49,7 @@ The file contains the memory page request sequence string for only one process. 
 
 The output file should print out the page fault rates for each of the four page replacement algorithms specified above based on the input page reference string at intervals of 2000 pages. Sample output format is shown below. For example, the column under 8000 lists the page fault rates for the first 8000 page references for all algorithms. Note that these are just sample values.
 
-![enter image description here](https://lh3.googleusercontent.com/VA-2fZ2V99RZDE7eo-RVOlOOmp5k_K4-87TdaeAArbYnzcw9wqSU192AAAz449attrh7Ut8XBCGH=s750 "Screen Shot 2017-11-16 at 3.28.22 PM.png")
+![enter image description here](https://lh3.googleusercontent.com/VA-2fZ2V99RZDE7eo-RVOlOOmp5k_K4-87TdaeAArbYnzcw9wqSU192AAAz449attrh7Ut8XBCGH=s725 "sample_output.png")
 
 
 
