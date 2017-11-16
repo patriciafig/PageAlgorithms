@@ -14,7 +14,7 @@ The primary goal of this lab assignment is to exercise four paging replacement a
 # Part I - Description  
 
 Write a C or C++ program that simulates the operation of 4 page replacement algorithms used in a virtual memory management system:
-> - First-in-First-out (FIFO) algorithm >
+> - First-in-First-out (FIFO) algorithm 
 > - Least Recently Used (LRU) algorithm
 > - Least Frequently Used (LFU) algorithm
 > - Optimal algorithm
@@ -39,6 +39,10 @@ Sample usage is
 
 # Input Details  
 
+> **No. of frames:**
+It is a single number that indicates the number of frames in the primary memory. So a number 128 will indicate that there are 128 frames of primary memory for this process. Your program will be tested with four different size of primary memory: 128, 256, 512 and 1024 frames.
+>**Input file:**
+The file contains the memory page request sequence string for only one process. The each line represents a page number which is being accessed by the process. Assume a process can have up to 4096 pages, and the pages being numbered from 0-4095. This implies that no number in the reference stream will fall outside that range. There will be exactly 10,000 references in the page reference string. In other word, the input file has 10,000 lines. For your test, you may use my sample input file from the class web-site.
 
 ----------------- 
 
