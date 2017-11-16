@@ -14,10 +14,10 @@ The primary goal of this lab assignment is to exercise four paging replacement a
 # Part I - Description  
 
 Write a C or C++ program that simulates the operation of 4 page replacement algorithms used in a virtual memory management system:
-> -First-in-First-out (FIFO) algorithm
-> -Least Recently Used (LRU) algorithm
-> -Least Frequently Used (LFU) algorithm
-> -Optimal algorithm
+> - First-in-First-out (FIFO) algorithm >
+> - Least Recently Used (LRU) algorithm
+> - Least Frequently Used (LFU) algorithm
+> - Optimal algorithm
 
 You will simulate each algorithm on the input data sets and report the performance of each. A description of each of these algorithms appears in Chapter 9 of our text.
 
