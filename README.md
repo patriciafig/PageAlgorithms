@@ -45,9 +45,15 @@ It is a single number that indicates the number of frames in the primary memory.
 The file contains the memory page request sequence string for only one process. The each line represents a page number which is being accessed by the process. Assume a process can have up to 4096 pages, and the pages being numbered from 0-4095. This implies that no number in the reference stream will fall outside that range. There will be exactly 10,000 references in the page reference string. In other word, the input file has 10,000 lines. For your test, you may use my sample input file from the class web-site.
 
 
------------------ 
-
 # Output Details  
 
 The output file should print out the page fault rates for each of the four page replacement algorithms specified above based on the input page reference string at intervals of 2000 pages. Sample output format is shown below. For example, the column under 8000 lists the page fault rates for the first 8000 page references for all algorithms. Note that these are just sample values.
+
+!(https://lh3.googleusercontent.com/I4EVovKn_UsCtEyKWCPjxXT7bQqwDHR7kmgFvQKNyCjN0lVRKwKJQxUxCMoAKxQRqLeiUV3id4ql=s0 "sample_output.png")
+
+-----------------
+
+
+# Requirements   
+
 
