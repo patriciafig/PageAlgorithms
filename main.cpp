@@ -1,5 +1,3 @@
-
- 
 // Created by Patricia on 11/16/17.
 /*
  Page Replacing Algorithms
