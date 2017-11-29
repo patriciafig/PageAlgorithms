@@ -14,7 +14,7 @@
 #include <cctype>
 #include <fstream>
 #include <iomanip>
-
+#include <iterator>
 using namespace std;
 
 /**
@@ -50,7 +50,6 @@ int fifo(const vector<int>& pageNumbers, int frameSize, vector<double>& pageFaul
             pageFaults++;
         }
 
-
         if (i > 0 && i % 2000 == 0) {
             pageFaultRates.push_back((pageFaults * 1.0) / i);
         }
@@ -75,7 +74,6 @@ int lru(const vector<int>& pageNumbers, int frameSize, vector<double>& pageFault
     for (int i = 0, n = pageNumbers.size(); i < n; ++i) {
         // Stack is maintained in lru order i.e. top most element
         // is most recently used and last element is least recently used
-
 
         list<int>::iterator it = find(stak.begin(), stak.end(), pageNumbers[i]);
 
@@ -110,44 +108,73 @@ int lru(const vector<int>& pageNumbers, int frameSize, vector<double>& pageFault
     return pageFaults;
 }
 
-int findOptimalPage(vector<int>& frames, const vector<int>& pageNumbers, int index) {
-    int farthestDist = 0;
-    int returnValue = -1;
-    for (int j = 0; j < frames.size(); ++j) {
-        for (int i = index, n = pageNumbers.size(); i < n; ++i) {
-            if (pageNumbers[i] == frames[j]) {
-                if (i - index > farthestDist) {
-                    farthestDist = i - index;
-                    returnValue = j;
-                }
-
-                break;
-            }
-        }
-    }
-
-    if (returnValue == -1) return 0;
-    return returnValue;
-}
-
 int optimal(const vector<int>& pageNumbers, int frameSize, vector<double>& pageFaultRates) {
     vector<int> frames;
+    vector<int> temp(frameSize, -1);
     int pageFaults = 0;
 
     pageFaultRates.clear();
 
     for (int i = 0, n = pageNumbers.size(); i < n; ++i) {
+        bool found = false;
 
-        if (frames.size() < frameSize) {
-            if (find(frames.begin(), frames.end(), pageNumbers[i]) == frames.end()) {
-                ++pageFaults;
-                frames.push_back(pageNumbers[i]);
+        for (int j = 0; j < frames.size(); ++j) {
+            if (frames[j] == pageNumbers[i]) {
+                found = true;
+                break;
             }
-        } else {
-            if (find(frames.begin(), frames.end(), pageNumbers[i]) == frames.end()) {
-                ++pageFaults;
-                int index = findOptimalPage(frames, pageNumbers, i + 1);
-                frames[index] = pageNumbers[i];
+        }
+
+        // In case of MISS
+        if (!found) {
+
+            // Add the element at the end if size of frames is less than frameSize
+            if (frames.size() < frameSize) {
+                frames.push_back(frameSize);
+            } else {
+
+                // Otherwise find the best page number to remove
+
+                int pos;
+                bool flag = false;
+
+                // Store the index of next occurrence of each page number in temp array
+                for (int j = 0; j < frameSize; ++j) {
+                    temp[j] = -1;
+
+                    for (int k = i + 1; k < frameSize; ++k) {
+                        if (frames[j] == pageNumbers[k]) {
+                            temp[j] = k;
+                            break;
+                        }
+                    }
+                }
+
+                // If there is a page number which is not referenced again, then remove it
+                for (int j = 0; j < frameSize; ++j) {
+                    if (temp[j] == -1) {
+                        pos = j;
+                        flag = true;
+                        break;
+                    }
+                }
+
+                // If all pages are referenced again in future, then find the
+                // page which is referenced later
+                if (!flag) {
+                    int max = temp[0];
+                    pos = 0;
+
+                    for (int j = 1; j < frameSize; ++j) {
+                        if (temp[j] > max) {
+                            max = temp[j];
+                            pos = j;
+                        }
+                    }
+                }
+
+                frames[pos] = pageNumbers[i];
+                pageFaults++;
             }
         }
 
@@ -180,7 +207,6 @@ int lfu(const vector<int>& pageNumbers, int frameSize, vector<double>& pageFault
     pageFaultRates.clear();
 
     for (int i = 0, n = pageNumbers.size(); i < n; ++i) {
-
 
         bool found = false;
 
@@ -274,7 +300,6 @@ int main(int argc, char* argv[]) {
     fout << "Algorithm   Total page faults\t2000\t4000\t6000\t8000\t10000\n";
     fout << "--------------------------------------------------------------------------------------";
 
-
     numFaults = fifo(pageNumbers, frameSize, pageFaultRates);
     fout << "\nFIFO     \t\t\t" << numFaults << "\t\t";
     for (int i = 0; i < pageFaultRates.size(); ++i) {
@@ -290,13 +315,15 @@ int main(int argc, char* argv[]) {
     numFaults = lfu(pageNumbers, frameSize, pageFaultRates);
     fout << "\nLFU      \t\t\t" << numFaults << "\t\t";
     for (int i = 0; i < pageFaultRates.size(); ++i) {
-        fout <<  setprecision(3) << pageFaultRates[i] << "\t";
+        fout << setprecision(3) << pageFaultRates[i] << "\t";
     }
+
 
     numFaults = optimal(pageNumbers, frameSize, pageFaultRates);
     fout << "\nOptimal  \t\t\t" << numFaults << "\t\t";
     for (int i = 0; i < pageFaultRates.size(); ++i) {
         fout << setprecision(3) << pageFaultRates[i] << "\t";
     }
+
     return 0;
 }
