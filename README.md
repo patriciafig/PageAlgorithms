@@ -5,11 +5,11 @@ Programming Assignment 3 – Simulating Page Replacement Algorithms
 Due Nov. 29, 2017 
 
 
-**execute by:
+**execute by:**
 
 g++ -std=c++11 main.cpp 
 
-**succesfully run the program by:
+**succesfully run the program by:**
 
 ./main [frame-size] pg-reference.txt [outputfile.txt]
 
